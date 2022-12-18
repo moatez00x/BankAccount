@@ -1,5 +1,7 @@
 package exalt.bankaccount.adapter.out.persistance;
 
-public class AccountAdapter {
+import exalt.bankaccount.application.port.out.AccountPort;
+
+public class AccountAdapter implements AccountPort{
 
 }
