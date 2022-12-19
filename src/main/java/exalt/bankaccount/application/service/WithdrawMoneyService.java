@@ -9,20 +9,21 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class WithdrawMoneyService implements WithdrawMoneyUseCase{
-	
-    private  AccountPort accountPort;
-    private  CreateOperationService createOperationService;
+public class WithdrawMoneyService implements WithdrawMoneyUseCase {
 
+	private AccountPort accountPort;
+	private CreateOperationService createOperationService;
 
 	@Override
 	public Account withdrawMoney(Long accountId, float amount) {
-		Account accountModified =accountPort.findAccountById(accountId);
-		accountModified.setBalance(accountModified.getBalance()-amount);
-		Operation operation=createOperationService.createOperation("withdraw", amount, accountModified.getBalance());
+		// find the account to modify
+		Account accountModified = accountPort.findAccountById(accountId);
+		// apply operation to the balance
+		accountModified.setBalance(accountModified.getBalance() - amount);
+		// create operation history
+		Operation operation = createOperationService.createOperation("withdraw", amount, accountModified.getBalance());
 		accountModified.getOperations().add(operation);
 		return accountPort.save(accountModified);
 	}
-
 
 }
