@@ -9,7 +9,7 @@ import exalt.bankaccount.domain.Operation;
 public class CheckOperationsService implements CheckOperationsUseCase{
 
 	@Override
-	public List<Operation> CheckOperations(String accountId) {
+	public List<Operation> CheckOperations(Long accountId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

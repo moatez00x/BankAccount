@@ -4,6 +4,6 @@ import exalt.bankaccount.domain.Account;
 
 public interface DepositMoneyUseCase {
 	
-	Account depositMoney(String accountId,float amount);
+	Account depositMoney(Long accountId,float amount);
 
 }

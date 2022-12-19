@@ -24,7 +24,7 @@ public class Account {
     private float  balance;
     
 	@OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
-	private List<Operation> lineItems;
+	private List<Operation> operations;
 
 }
 

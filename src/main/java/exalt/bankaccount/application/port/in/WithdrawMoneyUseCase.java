@@ -4,5 +4,5 @@ import exalt.bankaccount.domain.Account;
 
 public interface WithdrawMoneyUseCase {
 
-	Account withdrawMoney(String accountId,float amount);
+	Account withdrawMoney(Long accountId,float amount);
 }

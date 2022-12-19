@@ -1,11 +1,9 @@
 package exalt.bankaccount.adapter.out.persistance;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import exalt.bankaccount.domain.Account;
+import exalt.bankaccount.domain.Operation;
 
-
-@Repository
-public interface AccountRepository extends JpaRepository<Account,Long>{
+public interface OperationRepository extends JpaRepository<Operation,Long>{
 
 }

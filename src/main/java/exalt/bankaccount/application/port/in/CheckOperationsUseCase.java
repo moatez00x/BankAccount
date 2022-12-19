@@ -5,6 +5,6 @@ import exalt.bankaccount.domain.Operation;
 
 public interface CheckOperationsUseCase {
 	
-	List<Operation> CheckOperations(String accountId);
+	List<Operation> CheckOperations(Long accountId);
 
 }
