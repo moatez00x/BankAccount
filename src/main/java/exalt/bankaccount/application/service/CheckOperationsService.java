@@ -23,7 +23,7 @@ public class CheckOperationsService implements CheckOperationsUseCase{
 	@Override
 	public List<Operation> CheckOperations(Long accountId) {
 		log.info("Get history operations of account : {}",accountId);
-		Account account=accountPort.findAccountById(accountId);
+		Account account=accountPort.findAccountById(accountId).get();
 		List<Operation> history = account.getOperations();
 		log.info("Getting {} Operations",history.size());
 		return history;

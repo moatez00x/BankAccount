@@ -1,5 +1,7 @@
 package exalt.bankaccount.adapter.out.persistance;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 
 import exalt.bankaccount.application.port.out.AccountPort;
@@ -19,8 +21,8 @@ public class AccountAdapter implements AccountPort {
 	}
 
 	@Override
-	public Account findAccountById(Long id) {
-		return accountRepository.findById(id).get();
+	public Optional<Account> findAccountById(Long id) {
+		return accountRepository.findById(id);
 	}
 
 }

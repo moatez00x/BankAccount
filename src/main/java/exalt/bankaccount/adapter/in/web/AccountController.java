@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import exalt.bankaccount.application.port.in.CheckOperationsUseCase;
 import exalt.bankaccount.application.port.in.DepositMoneyUseCase;
 import exalt.bankaccount.application.port.in.WithdrawMoneyUseCase;
+import exalt.bankaccount.config.BankAccountException;
 import exalt.bankaccount.domain.Account;
 import exalt.bankaccount.domain.Operation;
 import lombok.AllArgsConstructor;
@@ -27,21 +28,18 @@ public class AccountController {
 	private WithdrawMoneyUseCase withdrawMoneyUseCase;
 	
 
-	// Deposit Money API
 	@PostMapping(value = "/deposit")
-	public ResponseEntity<Account> depositMoney(@RequestParam Long accountId, @RequestParam float amount) {
+	public ResponseEntity<Account> depositMoney(@RequestParam Long accountId, @RequestParam float amount) throws BankAccountException {
 		Account accountToUpdate  = depositMoneyUseCase.depositMoney(accountId, amount);
 		return new ResponseEntity<>(accountToUpdate, HttpStatus.OK);
 	}
 
-	// withdraw Money API
 	@PostMapping(value = "/withdraw")
-	public ResponseEntity<Account> withdrawMoney(@RequestParam Long accountId, @RequestParam float amount) {
+	public ResponseEntity<Account> withdrawMoney(@RequestParam Long accountId, @RequestParam float amount) throws BankAccountException {
 		Account accountToUpdate  = withdrawMoneyUseCase.withdrawMoney(accountId, amount);
 		return new ResponseEntity<>(accountToUpdate, HttpStatus.OK);
 	}
 
-	// Get operations history API
 	@GetMapping(value = "/operations")
 	public List<Operation> getOperations(@RequestParam Long accountId) {
 		return checkOperationsUseCase.CheckOperations(accountId);
