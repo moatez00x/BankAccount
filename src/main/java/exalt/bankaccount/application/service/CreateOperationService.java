@@ -2,13 +2,15 @@ package exalt.bankaccount.application.service;
 
 import java.util.Date;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import exalt.bankaccount.adapter.out.persistance.OperationAdapter;
 import exalt.bankaccount.application.port.in.CreateOperationUseCase;
 import exalt.bankaccount.domain.Operation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class CreateOperationService implements CreateOperationUseCase {
 	private OperationAdapter operationAdapter;
 

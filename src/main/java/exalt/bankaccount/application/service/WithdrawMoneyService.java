@@ -1,14 +1,16 @@
 package exalt.bankaccount.application.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import exalt.bankaccount.application.port.in.WithdrawMoneyUseCase;
 import exalt.bankaccount.application.port.out.AccountPort;
 import exalt.bankaccount.domain.Account;
 import exalt.bankaccount.domain.Operation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@Transactional
+@RequiredArgsConstructor
 public class WithdrawMoneyService implements WithdrawMoneyUseCase {
 
 	private AccountPort accountPort;
