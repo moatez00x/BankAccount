@@ -8,10 +8,12 @@ import exalt.bankaccount.application.port.out.AccountPort;
 import exalt.bankaccount.domain.Account;
 import exalt.bankaccount.domain.Operation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class DepositMoneyService implements DepositMoneyUseCase {
 
 	private AccountPort accountPort;
@@ -19,13 +21,11 @@ public class DepositMoneyService implements DepositMoneyUseCase {
 
 	@Override
 	public Account depositMoney(Long accountId, float amount) {
-		// find the account to modify
+		log.info("deposit Money to account Id: {} with amount {}",accountId,amount);
 		Account accountModified = accountPort.findAccountById(accountId);
-		// apply operation to the balance
 		accountModified.setBalance(accountModified.getBalance() + amount);
-		// create operation history
 		Operation operation = createOperationService.createOperation("deposit", amount, accountModified.getBalance());
-//		accountModified.getOperations().add(operation);
+		accountModified.getOperations().add(operation);
 		return accountPort.save(accountModified);
 	}
 
