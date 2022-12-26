@@ -4,14 +4,14 @@ import org.springframework.stereotype.Component;
 
 import exalt.bankaccount.application.port.out.OperationPort;
 import exalt.bankaccount.domain.Operation;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class OperationAdapter implements OperationPort{
 
-    private OperationRepository operationRepository;
+    private  OperationRepository operationRepository;
 
 	@Override
 	public Operation save(Operation operation) {

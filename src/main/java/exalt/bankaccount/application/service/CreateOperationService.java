@@ -5,16 +5,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import exalt.bankaccount.adapter.out.persistance.OperationAdapter;
 import exalt.bankaccount.application.port.in.CreateOperationUseCase;
+import exalt.bankaccount.application.port.out.AccountPort;
+import exalt.bankaccount.application.port.out.OperationPort;
 import exalt.bankaccount.domain.Operation;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Slf4j
 public class CreateOperationService implements CreateOperationUseCase {
-	private OperationAdapter operationAdapter;
+	private OperationPort operationPort;
 
 	@Override
 	public Operation createOperation(String name, float amount, float balance) {
@@ -22,8 +25,10 @@ public class CreateOperationService implements CreateOperationUseCase {
 		Operation operation = new Operation();
 		operation.setBalance(balance);
 		operation.setDate(new Date());
+		operation.setAmount(amount);
 		operation.setName(name);
-		return operationAdapter.save(operation);
+		log.info("Operation: {}",operationPort.save(operation));
+		return operationPort.save(operation);
 	}
 
 }

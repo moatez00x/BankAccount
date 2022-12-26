@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CheckOperationsService implements CheckOperationsUseCase{
 
-	private AccountPort accountPort;
+	private final AccountPort accountPort;
 
 	@Override
 	public List<Operation> CheckOperations(Long accountId) {
