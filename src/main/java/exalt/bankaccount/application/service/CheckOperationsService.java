@@ -2,6 +2,7 @@ package exalt.bankaccount.application.service;
 
 import java.util.List;
 
+import exalt.bankaccount.config.BankAccountException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +22,16 @@ public class CheckOperationsService implements CheckOperationsUseCase{
 	private final AccountPort accountPort;
 
 	@Override
-	public List<Operation> CheckOperations(Long accountId) {
+	public List<Operation> CheckOperations(Long accountId) throws BankAccountException {
 		log.info("Get history operations of account : {}",accountId);
-		Account account=accountPort.findAccountById(accountId).get();
+		Account account=getAccountById(accountId);
 		List<Operation> history = account.getOperations();
 		log.info("Getting {} Operations",history.size());
 		return history;
 	}
 
+	
+	private Account getAccountById(Long accountId) throws BankAccountException {
+		return accountPort.findAccountById(accountId);
+	}
 }

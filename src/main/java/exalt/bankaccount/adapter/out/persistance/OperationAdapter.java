@@ -18,4 +18,8 @@ public class OperationAdapter implements OperationPort{
         return operationRepository.save(operation);
 	}
 
+	@Override
+	public Operation findOperationById(Long id)  {
+		return operationRepository.findById(id).get();
+	}
 }

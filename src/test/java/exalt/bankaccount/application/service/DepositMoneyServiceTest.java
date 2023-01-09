@@ -20,11 +20,11 @@ import exalt.bankaccount.domain.Account;
 import exalt.bankaccount.domain.Operation;
 
 @SpringBootTest
-public class WithdrawMoneyServiceTest {
+public class DepositMoneyServiceTest {
 	@Autowired
 	AccountRepository accountRepository;
 	@Autowired
-	WithdrawMoneyService withdrawMoneyService;
+	DepositMoneyService depositMoneyService;
 	@Autowired
 	AccountPort accountPort;
 	@MockBean
@@ -46,11 +46,11 @@ public class WithdrawMoneyServiceTest {
 		account = accountRepository.save(account);
 
 		// WHEN
-		Account resultAccount = withdrawMoneyService.withdrawMoney(account.getId(), 100);
+		Account resultAccount = depositMoneyService.depositMoney(account.getId(), 100);
 
 		// THEN
 		assertThat(resultAccount.getName().equals(account.getName()));
-		assertThat(resultAccount.getBalance() == 400);
+		assertThat(resultAccount.getBalance() == 600);
 
 	}
 
@@ -75,27 +75,10 @@ public class WithdrawMoneyServiceTest {
 			Account account = Account.builder().balance(500).name("testAccount").operations(operations).build();
 			account = accountRepository.save(account);
 			// WHEN
-			Account resultAccount = withdrawMoneyService.withdrawMoney(account.getId(), 0);
+			Account resultAccount = depositMoneyService.depositMoney(account.getId(), 0);
 		});
 		// THEN
 		Assertions.assertEquals("Amount is zero", thrown.getCode().getMessage());
 	}
 
-	
-	@Test
-	public void GIVEN_Greater_Amount_Then_Balance_WHEN_findById_THEN_return_exception() throws Exception {
-
-		// GIVEN
-		BankAccountException thrown = Assertions.assertThrows(BankAccountException.class, () -> {
-			Operation operation = Operation.builder().amount(400).balance(100l).date(new Date()).build();
-			List<Operation> operations = new ArrayList<>();
-			operations.add(operation);
-			Account account = Account.builder().balance(500).name("testAccount").operations(operations).build();
-			account = accountRepository.save(account);
-			// WHEN
-			Account resultAccount = withdrawMoneyService.withdrawMoney(account.getId(), 1500);
-		});
-		// THEN
-		Assertions.assertEquals("The amount is superior to the balance of the account", thrown.getCode().getMessage());
-	}
 }

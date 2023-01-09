@@ -4,5 +4,5 @@ import exalt.bankaccount.domain.Operation;
 
 public interface OperationPort {
     Operation save(Operation operation);
-
+    Operation findOperationById(Long id);
 }

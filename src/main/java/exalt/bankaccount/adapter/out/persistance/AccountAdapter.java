@@ -1,13 +1,12 @@
 package exalt.bankaccount.adapter.out.persistance;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Component;
 
 import exalt.bankaccount.application.port.out.AccountPort;
+import exalt.bankaccount.config.BankAccountException;
+import exalt.bankaccount.config.Codes;
 import exalt.bankaccount.domain.Account;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 
 @Component
@@ -22,8 +21,8 @@ public class AccountAdapter implements AccountPort {
 	}
 
 	@Override
-	public Optional<Account> findAccountById(Long id) {
-		return accountRepository.findById(id);
+	public Account findAccountById(Long id) throws BankAccountException {
+		return accountRepository.findById(id).orElseThrow(()-> new BankAccountException(Codes.AC_01));
 	}
 
 }
